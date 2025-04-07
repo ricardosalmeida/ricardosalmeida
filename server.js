@@ -44,6 +44,7 @@ app.get('/parar', (req, res) => {
   res.send('Processo parado!');
 });
 
-app.listen(3000, () => console.log('Servidor rodando na porta 3000'));
-
+app.listen(PORT, HOST, () => {
+  console.log(`Servidor rodando em: http://${HOST}:${PORT}`);
+});
 
