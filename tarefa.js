@@ -8,7 +8,7 @@ const axios = require('axios');
 
 async function obterDados() {
     try {
-        const resposta = await axios.get('https://peisemiramis.com.br/professor/controller/json.php');
+        const resposta = await axios.get('https://peisemiramis.com/professor/controller/json.php');
          return resposta.data.ra;
     } catch (erro) {
         console.error("Erro ao obter os dados:", erro);
@@ -34,7 +34,7 @@ async function runProcess(maxRetries = 3) {
     try {
  
       process.stdout.write(`Iniciando processo - tentativa ${tentativas + 1}`);
-      const browser = await puppeteer.launch({ headless: false, args: ['--no-sandbox', '--disable-setuid-sandbox'] });
+      const browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox', '--disable-setuid-sandbox'] });
       const page = await browser.newPage();
       await page.setViewport({ width: 1280, height: 800 });
 
@@ -192,7 +192,7 @@ const tar_c =  "["+tarefasComClique+"]";
 // console.log(tar_f,tar_c,ra_al);
 
   try {
-      const resposta = await axios.post('https://peisemiramis.com.br/controller/tarefas.php', {
+      const resposta = await axios.post('https://peisemiramis.com/controller/tarefas.php', {
         ra_aluno:ra_al,
         tarefas_a_fazer:tar_f,
 tarefas_realizadas:tar_c
@@ -220,7 +220,7 @@ browser.close();
 
 
 try {
-  const resposta = await axios.post('https://peisemiramis.com.br/controller/tarefas.php', {
+  const resposta = await axios.post('https://peisemiramis.com/controller/tarefas.php', {
     ra_aluno:ra_al,
 tarefas_a_fazer:"Ra_error",
 tarefas_realizadas:"Ra_error"
@@ -271,7 +271,7 @@ async function executeProcess() {
       console.error('Processo finalizado com erro:', erro);
 
       try {
-        const resposta = await axios.post('https://peisemiramis.com.br/controller/tarefas.php', {
+        const resposta = await axios.post('https://peisemiramis.com/controller/tarefas.php', {
           ra_aluno:ra_al,
       tarefas_a_fazer:"error",
       tarefas_realizadas:"error"
