@@ -34,7 +34,7 @@ async function runProcess(maxRetries = 3) {
     try {
  
       process.stdout.write(`Iniciando processo - tentativa ${tentativas + 1}`);
-      const browser = await puppeteer.launch({ headless: false, args: ['--no-sandbox', '--disable-setuid-sandbox'] });
+      const browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox', '--disable-setuid-sandbox'] });
       const page = await browser.newPage();
       await page.setViewport({ width: 1280, height: 800 });
 
