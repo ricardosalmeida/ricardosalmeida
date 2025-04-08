@@ -1,13 +1,39 @@
-FROM mcr.microsoft.com/playwright:v1.42.1-jammy
+# Imagem base oficial com tudo que o Puppeteer precisa
+FROM node:20-slim
 
-# Cria diretório de trabalho dentro do container
+# Instala as dependências do Chromium para headless
+RUN apt-get update && apt-get install -y \
+    ca-certificates \
+    fonts-liberation \
+    libappindicator3-1 \
+    libasound2 \
+    libatk-bridge2.0-0 \
+    libatk1.0-0 \
+    libcups2 \
+    libdbus-1-3 \
+    libdrm2 \
+    libgbm1 \
+    libgtk-3-0 \
+    libnspr4 \
+    libnss3 \
+    libx11-xcb1 \
+    libxcomposite1 \
+    libxdamage1 \
+    libxrandr2 \
+    xdg-utils \
+    wget \
+    --no-install-recommends \
+ && apt-get clean \
+ && rm -rf /var/lib/apt/lists/*
+
+# Cria e define diretório de trabalho
 WORKDIR /app
 
-# Copia seus arquivos para dentro do container
+# Copia os arquivos do projeto
 COPY . .
 
-# Instala as dependências
+# Instala dependências do Node (axios e puppeteer completo)
 RUN npm install
 
-# Comando padrão ao rodar o container
+# Executa o script
 CMD ["node", "tarefa.js"]
